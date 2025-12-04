@@ -5,7 +5,7 @@ namespace _Source
     public class RobotDogMovement : MonoBehaviour
     {
         [Header("Movement Settings")]
-        public float forwardSpeed = 2f; // скорость движения вперед
+        public float forwardSpeed = 2f; 
 
         [Header("Leg Joints")]
         public HingeJoint frontLeftLeg;
@@ -14,21 +14,19 @@ namespace _Source
         public HingeJoint backRightLeg;
 
         [Header("Leg Settings")]
-        public float legMotorSpeed = 100f; // скорость мотора ноги
-        public float legMotorForce = 100f; // сила мотора
+        public float legMotorSpeed = 100f; 
+        public float legMotorForce = 100f; 
 
-        private float stepTimer = 0f;
-        private float stepDuration = 0.5f; // время одного шага
+        private float _stepTimer = 0f;
+        private float _stepDuration = 0.5f; 
 
         void FixedUpdate()
         {
-            // 1. Двигаем тело вперед
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.linearVelocity = new Vector3(-forwardSpeed, rb.linearVelocity.y, 0);
-
-            // 2. Двигаем ноги
-            stepTimer += Time.fixedDeltaTime;
-            float motorDirection = (stepTimer % stepDuration < stepDuration / 2) ? 1f : -1f;
+            
+            _stepTimer += Time.fixedDeltaTime;
+            float motorDirection = (_stepTimer % _stepDuration < _stepDuration / 2) ? 1f : -1f;
 
             MoveLeg(frontLeftLeg, motorDirection);
             MoveLeg(backRightLeg, motorDirection);
